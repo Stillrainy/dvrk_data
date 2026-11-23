@@ -15,6 +15,7 @@
   <depend>rclpy</depend>
   <depend>std_msgs</depend>
   <depend>rosbag2_cpp</depend>
+  <depend>yaml-cpp</depend>
 
   <build_depend>pkg-config</build_depend>
   <build_depend>libgstreamer1.0-dev</build_depend>
@@ -26,6 +27,7 @@
   <exec_depend>python3-cairo</exec_depend>
   <exec_depend>python3-opencv</exec_depend>
   <exec_depend>python3-numpy</exec_depend>
+  <exec_depend>gstreamer1.0-gl</exec_depend>
   <exec_depend>libgstreamer1.0-dev</exec_depend>
   <exec_depend>libgstreamer-plugins-base1.0-dev</exec_depend>
   <exec_depend>gtk3</exec_depend>

@@ -8,12 +8,17 @@
   "properties": {
     "type": { "const": "dvrk_data:stereo_source@1.0.0" },
     "name": { "type": "string", "minLength": 1, "default": "dvrk_display" },
+    "gst_output": {
+      "type": "string",
+      "pattern": "^@dvrk:[^:]+:[^:]+$",
+      "description": "Enable a combined side-by-side I420 stream on this socket."
+    },
     "camera": {
       "type": "object",
       "additionalProperties": false,
       "required": ["left", "right"],
       "properties": {
-        "size": { "$ref": "#/$defs/size" },
+        "size": { "oneOf": [{ "const": "auto" }, { "$ref": "#/$defs/size" }] },
         "left": { "$ref": "#/$defs/sourceEndpoint" },
         "right": { "$ref": "#/$defs/sourceEndpoint" }
       }

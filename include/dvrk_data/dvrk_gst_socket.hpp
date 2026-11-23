@@ -20,6 +20,7 @@
 // Fixed roles
 // -----------
 //   stereo_source    — camera capture app (produces left / right frames)
+//   stereo_rectify   — calibrated side-by-side rectification
 //   stereo_alignment — alignment / compositing app (consumes left+right, produces stereo)
 //   stereo_display   — display app (produces stereo / overlay for downstream)
 //
@@ -51,6 +52,7 @@ namespace dvrk_gst {
 
 static constexpr const char *ROLE_STEREO_SOURCE    = "stereo_source";
 static constexpr const char *ROLE_STEREO_ALIGNMENT = "stereo_alignment";
+static constexpr const char *ROLE_STEREO_RECTIFY   = "stereo_rectify";
 static constexpr const char *ROLE_STEREO_DISPLAY   = "stereo_display";
 
 // Prefix shared by all dvrk GStreamer abstract sockets.

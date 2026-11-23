@@ -12,6 +12,7 @@ endif()
 find_package(ament_cmake REQUIRED)
 find_package(ament_cmake_python REQUIRED)
 find_package(ament_index_cpp REQUIRED)
+find_package(yaml-cpp REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(rosbag2_cpp REQUIRED)
@@ -19,6 +20,7 @@ find_package(PkgConfig REQUIRED)
 
 pkg_check_modules(JSONCPP REQUIRED jsoncpp)
 pkg_check_modules(GST REQUIRED gstreamer-1.0 gstreamer-video-1.0 gstreamer-app-1.0)
+pkg_check_modules(GST_ALLOCATORS REQUIRED IMPORTED_TARGET gstreamer-allocators-1.0)
 pkg_check_modules(GTK REQUIRED gtk+-3.0)
 pkg_check_modules(GTKMM REQUIRED gtkmm-3.0)
 
@@ -115,6 +117,7 @@ add_executable(stereo_source
   src/stereo_source/main.cpp
 )
 target_link_libraries(stereo_source
+  PkgConfig::GST_ALLOCATORS
   rclcpp::rclcpp
 )
 target_include_directories(stereo_source PRIVATE
@@ -129,6 +132,17 @@ target_link_libraries(stereo_source
   ${GST_LIBRARIES}
   ${JSONCPP_LIBRARIES}
   dvrk_data
+)
+
+add_executable(stereo_rectify
+  src/stereo_rectify/main.cpp
+  src/stereo_rectify/calibration.cpp
+)
+target_compile_options(stereo_rectify PRIVATE ${GST_CFLAGS_OTHER} ${JSONCPP_CFLAGS_OTHER})
+target_link_libraries(stereo_rectify
+  dvrk_data
+  rclcpp::rclcpp
+  yaml-cpp::yaml-cpp
 )
 
 add_executable(stereo_alignment
@@ -174,6 +188,7 @@ install(TARGETS
   record
   stereo_source
   stereo_alignment
+  stereo_rectify
   video_tag
   video_latency
   video_configurator
